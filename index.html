@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <meta name="view-port" content="width=device-width,initial-scale=1">
+<style>
+    body{
+        font-size:13px;
+        line-height:19px;
+        color:#111;
+        background-color: #F0F2F5;
+    }
+    .container{     
+        min-width: 90%; 
+        margin:auto;
+        border:2px solid gray;
+        text-align: center;
+        background-color:#FFF;
+        padding:5vh;
+        border-radius: 10px;
+    }
+    h2{
+        margin-bottom: 30px;
+    }
+    .main{
+        width:80%;
+        margin:auto; 
+        display:inline-block;
+        display: flex;
+        justify-content: space-around;
+    }
+    .inside{  
+        height:7vw;
+        width:22.5%;
+        float:left;
+        font-size: 1.5vw;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow:5px 10px 10px #888888; 
+         
+    }
+    .inside:hover{
+        box-shadow: 5px 10px 18px #111;
+        
+    }
+    input[type=radio] {
+        display: none;
+    }
+    .user{
+        width:100%;
+        height:100%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        opacity:0.5;
+        border:2px solid gray;
+        border-radius: 5px;
+    }
+    .button{
+        width:200px;
+        height:40px;
+        margin: auto;
+    }
+    button{
+        height:100%;
+        width:100%;
+        background-color:#04ABF2;
+        color:#fff;
+        font-size: 1.5vw;
+        border-radius:5px;
+    }
+    input[type="radio"]:checked+label {
+        background-color: white;
+        border:5px solid #6fac46;
+        opacity: 1;
+        box-shadow: 5px 5px 10px black;
+    }
+    span{
+        color:red;
+        display:flex;
+        font-size: 1.5vw;   
+        align-items: center;   
+        justify-content: center;
+        font-weight: bold;
+        margin:3vh 0vh;
+    }
+    .terms{
+        float:left;
+        font-size: 1.1vw;
+        margin-left:2.5vw;
+    }
+    #accept_terms{
+        width:2.5vw;
+        height: 2.5vh;
+    }
+    label {
+        display: flex;
+        align-items: center;
+    }
+    input[type=checkbox]{
+        flex: none;
+    }
+    
+    @media only screen and (max-width: 768px) {
+        .inside{
+            height:50px;
+            font-size: 15px;
+        }    
+        span{
+            font-size: 10px;
+        }
+        .terms{
+            font-size: 12px;
+        }
+        .container{
+            padding:2vh;  
+        }
+        
+    }
+    
+    
+    
+    
+</style>
+</head>
+<body>
+<form method="post" action="amazonForm" id="selectUserTypeForm">
+    <div class="container">
+        <h2>Please select your user type</h2>
+        <div class="main">
+            <div class="inside">
+                <input type="radio" name="userType" value="Priester" id="user_priester">
+                <label id="priester" for="user_priester" class="user">Priester</label>
+            </div>
+
+            <div class="inside">
+                <input type="radio" name="userType" value="Moderator" id="user_musicians">
+                <label id="moderator" for="user_musicians" class="user">Moderator</label>
+            </div>
+
+            <div class="inside">
+                <input type="radio" name="userType" value="Singer" id="user_speaker">
+                <label id="singer" for="user_speaker" class="user">Singer</label>
+            </div>
+
+            <div class="inside">
+                <input type="radio" name="userType" value="Speaker" id="user_moderators">
+                <label id="Speaker" for="user_moderators" class="user">Speaker</label>
+            </div>  
+        </div>
+        <span id="error">Please Select any user type</span>
+        <div class="terms">
+            <label id="terms" for="accept_terms">
+                <input type="checkbox" name="accept_terms" id="accept_terms">{{LANG terms_agreement}}
+                <a href="{{LINK terms/terms}}">{{LANG terms_of_use}}</a> & <a href="{{LINK terms/privacy-policy}}">{{LANG privacy_policy}}</a>
+            </label>
+        </div><br><br>
+        <div class="button"><button>Save & continue</button> </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        $('#selectUserTypeForm').submit(function (event) { 
+            //event.preventDefault();
+            document.getElementById('error').innerHTML = "";
+            var userType =  $.trim($("input[name=userType]:checked").val());
+    
+            if (userType.length == 0) {
+                document.getElementById('error').innerHTML = "Please select your user type.";
+                return false;
+            }
+
+            var terms = document.getElementById('accept_terms');
+            if (terms.checked == true) {
+                    
+            } else {
+                document.getElementById('error').innerHTML = "Please agree terms and condition.";
+                return false;
+
+            }
+        });
+    }); 
+</script>
+</body>
+</html>
